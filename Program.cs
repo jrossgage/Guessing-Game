@@ -2,34 +2,46 @@
 
 int attRemaining;
 string difficulty;
+bool difficultyCheck = true;
 int secretNum = new Random().Next(1, 100);
-Console.WriteLine("Choose Your Difficulty!");
-Console.Write("Easy/Medium/HARD/Cheater? > ");
-string answer = Console.ReadLine().ToLower();
 
-if (answer == "easy")
+while (difficultyCheck)
 {
-    difficulty = "easy";
-    attRemaining = 7;
-    Main();
-}
-else if (answer == "medium")
-{
-    difficulty = "medium";
-    attRemaining = 5;
-    Main();
-}
-else if (answer == "hard")
-{
-    difficulty = "hard";
-    attRemaining = 3;
-    Main();
-}
-else if (answer == "cheater")
-{
-    attRemaining = 0;
-    difficulty = "cheater";
-    Main();
+    Console.WriteLine("Choose Your Difficulty!");
+    Console.Write("Easy/Medium/HARD/Cheater? > ");
+    string answer = Console.ReadLine().ToLower();
+    if (answer == "easy")
+    {
+        difficulty = "easy";
+        attRemaining = 7;
+        difficultyCheck = false;
+        Main();
+    }
+    else if (answer == "medium")
+    {
+        difficulty = "medium";
+        attRemaining = 5;
+        difficultyCheck = false;
+        Main();
+    }
+    else if (answer == "hard")
+    {
+        difficulty = "hard";
+        attRemaining = 3;
+        difficultyCheck = false;
+        Main();
+    }
+    else if (answer == "cheater")
+    {
+        attRemaining = 0;
+        difficulty = "cheater";
+        difficultyCheck = false;
+        Main();
+    }
+    else
+    {
+        Console.WriteLine("Please select a real difficulty...");
+    };
 }
 
 void Main()
@@ -39,10 +51,10 @@ void Main()
     string guess = Console.ReadLine();
     int numGuess = int.Parse(guess);
 
-
     if (numGuess == secretNum && attRemaining >= 0 && difficulty != "cheater")
     {
         Console.WriteLine("You guessed correctly!");
+        Console.Beep();
     }
     else if (attRemaining == 0 && difficulty != "cheater")
     {
@@ -67,11 +79,17 @@ void Main()
     else if (numGuess == secretNum && difficulty == "cheater")
     {
         Console.WriteLine("Wow!! You're so smart!");
+        Console.Beep();
     }
-    else
+    else if (numGuess < secretNum && difficulty != "cheater")
     {
         Console.WriteLine($"WRONG, TOO Low. Try again. (Attempts remaining {attRemaining})");
         attRemaining--;
+        Main();
+    }
+    else
+    {
+        Console.WriteLine("...it's a number...");
         Main();
     }
 };
