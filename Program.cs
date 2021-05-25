@@ -23,7 +23,7 @@ void Main()
     }
     else
     {
-        Console.WriteLine("WRONG. Try again");
+        Console.WriteLine($"WRONG.Try again. (Attempt number {attempts})");
         attempts++;
         Main();
     };
